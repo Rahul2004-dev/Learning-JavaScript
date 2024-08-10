@@ -1,8 +1,26 @@
-// Basically three type of Variable are exist in JavaScript (let, var, const{Constant Variabe}), detailes are below
+function updateUI(data) {
+  
+  temperatureElement.textContent = `${data.current.temp_c}°C / ${data.current.temp_f}°F`
 
-/*this type of variables value are any time will be changed */
-let Rahul = "Rahul"  
-var valuesInNumber = 56
+  // Polar Area Chart 
+const ctx = document.querySelector("#airQuilityChart").getContext("2d");
 
-console.log(Rahul);
-console.log(valuesInNumber);
+const title = [];
+const values = [];
+
+for(const property in data.current.air_quality) {
+  console.log(property);
+  
+  if(["us-epa-index", "gb-defra-index"].includes(property)){
+    continue;
+  }
+  title.push(property);
+  values.push(data.current.air_quality[property])
+}
+
+
+// Polar Area Chart 
+  const ctx = airQuilityChartElement.getContext("2d");
+  const { air_quality } = data.current;
+  const title = Object.keys(air_quality).filter(key => !["us-epa-index", "gb-defra-index"].includes(key));
+  const values = title.map(key => air_quality[key]);
